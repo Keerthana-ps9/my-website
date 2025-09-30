@@ -1,0 +1,6 @@
+#ignore one drive temperory files 
+~* 
+~*.tmp 
+~*.log 
+Desktop.ini 
+Thumbs.db 
