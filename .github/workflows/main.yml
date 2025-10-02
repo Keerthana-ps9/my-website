@@ -1,11 +1,31 @@
-name: Hello CI
+name: Static Website CI
 
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  hello:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Say Hello
-        run: echo "🎉 Hello from GitHub Actions!"
-      
+      # Step 1: Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Validate HTML
+      - name: Validate HTML
+        uses: Cyb3r-Jak3/html5validator-action@v7
+        with:
+          root: .
+
+      # Step 3: Lint CSS
+      - name: Lint CSS
+        run: npx stylelint "**/*.css" || true
+
+      # Step 4: Lint JS
+      - name: Lint JavaScript
+        run: npx eslint "**/*.js" || true
+
